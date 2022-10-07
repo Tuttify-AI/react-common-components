@@ -1,0 +1,79 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "import",
+    "react",
+    "react-hooks"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "env": {
+    "es6": true,
+    "commonjs": true,
+    "browser": true,
+    "jest": true,
+    "node": true
+  },
+  "rules": {
+    "import/first": "error",
+    "import/no-amd": "error",
+    "import/no-webpack-loader-syntax": "error",
+    "react/forbid-foreign-prop-types": [
+      "warn",
+      {
+        "allowInPropTypes": true
+      }
+    ],
+    "react-hooks/exhaustive-deps": "warn",
+    "react/no-danger-with-children": "warn",
+    "react/no-direct-mutation-state": "warn",
+    "react/no-is-mounted": "warn",
+    "react/no-typos": "error",
+    "react/react-in-jsx-scope": 0,
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "react/no-unescaped-entities": 1,
+    "no-case-declarations": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/member-delimiter-style": 0,
+    "@typescript-eslint/no-useless-constructor": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-inferrable-types": "warn",
+    "@typescript-eslint/no-use-before-define": 0,
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "no-useless-escape": "warn",
+    "no-console": [
+      1,
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ]
+  }
+}
