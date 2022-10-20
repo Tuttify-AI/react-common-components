@@ -1,2 +1,4 @@
-export * from './image';
-export * from './title';
+import Image from './image';
+import Title from './title';
+
+export { Image, Title };

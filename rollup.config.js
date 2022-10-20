@@ -8,7 +8,7 @@ const packageJson = require('./package.json');
 import { getFolders } from './scripts/buildUtils';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
 import json from '@rollup/plugin-json';
-
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 const plugins = [
     peerDepsExternal(),
@@ -24,6 +24,7 @@ const plugins = [
     }),
     terser(),
     json(),
+    nodePolyfills(),
 ];
 const subfolderPlugins = (folderName) => [
     ...plugins,
@@ -77,6 +78,6 @@ export default [
             },
         ],
         plugins,
-        external: ['react', 'react-dom'],
+        external: ['react', 'react-dom', 'socket.io-client'],
     },
 ];
