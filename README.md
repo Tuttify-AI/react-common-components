@@ -11,11 +11,11 @@
 
 ## Installation
 
-`npm install @blipiqlabs/edu-hooks --save`
+`npm install @blipiqlabs/react-common-components --save`
 
 or 
 
-`yarn add @blipiqlabs/edu-hooks`
+`yarn add @blipiqlabs/react-common-components`
 
 ## Hooks
 
@@ -27,7 +27,7 @@ React hook that returns the previous value as described in the [React hooks FAQ]
 
 ```jsx
 import React, {useEffect, useState} from "react";
-import {usePrevious} from "@blipiqlabs/edu-hooks";
+import {usePrevious} from "@blipiqlabs/react-common-components";
 
 const Demo = () => {
     const [count, setCount] = useState(0);
@@ -60,7 +60,7 @@ React hook that returns socket instance and all subscription events
 
 ```tsx
 import React from "react";
-import {usePrevious} from "@blipiqlabs/edu-hooks";
+import {usePrevious} from "@blipiqlabs/react-common-components";
 //... other imports
 
 const SocketWrapper: React.FC = ({ children }) => {
