@@ -30,7 +30,7 @@ function useChatMessages(
   socket: Socket | null,
   subscribeToConnect?: ReturnType<typeof useSetupSocket>['subscribeToConnect'],
   roomId?: string,
-  { addRoomMember, fetchMessages, showLogs = false }: UseChatMessagesParams = DEFAULT_PARAMS
+  { addRoomMember, fetchMessages, showLogs = true }: UseChatMessagesParams = DEFAULT_PARAMS
 ) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
