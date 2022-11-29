@@ -34,9 +34,12 @@ function useChatMessages(
 ) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
+  showLogs && console.log('useChatMessages messages:', messages);
+
   const getMessages = useCallback(
     async (roomId: string, messageData?: MessageData) => {
       try {
+        showLogs && console.log('useChatMessages getMessages:', fetchMessages);
         if (fetchMessages) {
           const data = await fetchMessages(roomId, messageData);
           setMessages(data);
@@ -52,9 +55,11 @@ function useChatMessages(
   const onConnectToRoom = useCallback(
     async (roomId: string) => {
       try {
+        showLogs && console.log('useChatMessages onConnectToRoom:', addRoomMember);
         if (addRoomMember) {
           await addRoomMember(roomId);
           await getMessages(roomId, { type: 'chat' });
+          showLogs && console.log('useChatMessages a room member was added to', roomId);
         }
       } catch (e) {
         // eslint-disable-next-line no-console
