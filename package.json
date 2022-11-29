@@ -1,6 +1,6 @@
 {
   "name": "@blipiqlabs/react-common-components",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "license": "MIT",
   "author": "blipiq",
   "main": "build/index.js",
