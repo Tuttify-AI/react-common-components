@@ -61,10 +61,11 @@ function useSetupSocket(
 
   useEffect(() => {
     if (token && prevToken && prevToken !== token) {
+      showLogs && console.log('socket connection close on token change');
       socket?.close();
       setSocket(null);
     }
-  }, [token, prevToken, socket, setSocket]);
+  }, [token, prevToken, socket, setSocket, showLogs]);
 
   useEffect(() => {
     if (socket && !isLoggedIn) {
