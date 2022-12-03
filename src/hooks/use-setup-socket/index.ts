@@ -90,17 +90,45 @@ function useSetupSocket(
     if (socket) {
       socket.on(SocketEvents.disconnect, reason => {
         // eslint-disable-next-line no-console
-        showLogs && console.log('socket connection lost', `reason ${reason}`);
+        showLogs && console.log('socket event connection lost', `reason ${reason}`);
       });
 
       socket.on(SocketEvents.connect, () => {
         // eslint-disable-next-line no-console
-        showLogs && console.log('socket connect event fired', `socket id ${socket.id}`);
+        showLogs && console.log('socket event connect event fired', `socket id ${socket.id}`);
+      });
+
+      socket.on('connection', s => {
+        // eslint-disable-next-line no-console
+        showLogs && console.log('socket event connection', `socket ${s}`);
       });
 
       socket.on(SocketEvents.reconnect, () => {
         // eslint-disable-next-line no-console
-        showLogs && console.log('socket was reconnected', `socket id ${socket.id}`);
+        showLogs && console.log('socket event was reconnected', `socket id ${socket.id}`);
+      });
+
+      socket.on(SocketEvents.connect_error, err => {
+        // eslint-disable-next-line no-console
+        showLogs && console.log('socket event connect_error', `error: ${err.message}`);
+      });
+
+      socket.on(SocketEvents.users, () => {
+        // eslint-disable-next-line no-console
+        showLogs && console.log('socket event users', `socket id ${socket.id}`);
+      });
+
+      socket.on(SocketEvents.userStatus, () => {
+        // eslint-disable-next-line no-console
+        showLogs && console.log('socket event userStatus', `socket id ${socket.id}`);
+      });
+      socket.on(SocketEvents.roomsJoin, () => {
+        // eslint-disable-next-line no-console
+        showLogs && console.log('socket event roomsJoin', `socket id ${socket.id}`);
+      });
+      socket.on(SocketEvents.roomsLeave, () => {
+        // eslint-disable-next-line no-console
+        showLogs && console.log('socket event roomsLeave', `socket id ${socket.id}`);
       });
     }
   }, [socket, showLogs]);
