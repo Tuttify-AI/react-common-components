@@ -27,7 +27,7 @@ const plugins = [
   json(),
   nodePolyfills(),
   scss({
-    output: './build/css/style.css',
+    fileName: 'bundle.css',
     failOnError: true,
   }),
 ];
