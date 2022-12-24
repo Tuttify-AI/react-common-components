@@ -11,6 +11,7 @@ import QuestionIcon from '../icons/QuestionIcon';
 import CloseIcon from '../icons/CloseIcon';
 
 import 'react-virtualized/styles.css';
+import useInterval from 'src/hooks/use-interval';
 
 export interface SocketChatProps {
   socket: any;
@@ -21,6 +22,8 @@ export interface SocketChatProps {
   messages: any[];
   maxChatChar?: number | string;
   placeholder?: string;
+  getQuestionListSummary: () => void;
+  questionListSummary: { my_question_answered_count: number; friend_question_count: number } | undefined;
 }
 
 const SocketChat: FC<SocketChatProps> = ({
@@ -32,11 +35,24 @@ const SocketChat: FC<SocketChatProps> = ({
   messages,
   maxChatChar = 300,
   placeholder = 'Type your message',
+  getQuestionListSummary,
+  questionListSummary,
 }) => {
   const [ioSocket, setIoSocket] = useState<any>(null);
   const [chatHistory, setChatHistory] = useState<any[]>(messages);
   const [showMobileChat, setShowMobileChat] = useState(false);
   const [showMobileInput, setShowMobileInput] = useState(false);
+
+  console.log('SocketChat, roomId:', roomId);
+
+  useEffect(() => {
+    // call once on initialize
+    getQuestionListSummary();
+  }, [getQuestionListSummary]);
+
+  const HALF_MINUTE_MS = 30000;
+  // keep fetching summary every 30 seconds
+  useInterval(getQuestionListSummary, HALF_MINUTE_MS);
 
   const msgInput = useRef<HTMLInputElement>(null);
 
@@ -58,7 +74,7 @@ const SocketChat: FC<SocketChatProps> = ({
       sendMsg(msgInput.current.value);
       msgInput.current.value = '';
     }
-  }, [showMobileInput, setShowMobileInput, msgInput, roomId]);
+  }, [showMobileInput, setShowMobileInput, msgInput, sendMsg]);
 
   const handleMessageSent = useCallback(data => {
     if (!data.message.type || data.message?.type === 'chat') {
@@ -160,8 +176,8 @@ const SocketChat: FC<SocketChatProps> = ({
             <div className="question-mark">
               <QuestionIcon />
             </div>
-            <div className="reads">2</div>
-            <div className="un-reads">8</div>
+            <div className="reads">{questionListSummary?.friend_question_count ?? 0}</div>
+            <div className="un-reads">{questionListSummary?.my_question_answered_count ?? 0}</div>
             <div className="label">Help</div>
           </div>
         </div>
