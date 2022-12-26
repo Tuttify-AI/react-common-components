@@ -168,15 +168,18 @@ const HelpSubmit: React.FC<HelpSubmitType> = ({
   };
 
   const handleSubmit = useCallback(() => {
-    const answerIndex = answers?.findIndex(item => item.text === answer) || 0;
+    let answerId;
+    if (type === QUESTION_TYPE.RANGE || type === QUESTION_TYPE.AGREE) {
+      answerId = answer;
+    } else {
+      answerId = answers?.findIndex(item => item.text === answer) || 0;
+      answerId = answerId >= 0 ? answerId + 1 : -1;
+    }
+
     const data = {
-      answer_id: answerIndex >= 0 ? answerIndex + 1 : -1,
+      answer_id: answerId,
       reason,
     };
-
-    if (type === QUESTION_TYPE.RANGE || type === QUESTION_TYPE.AGREE) {
-      // handle different logic here.
-    }
 
     submit(data);
     setSubmitted(true);
