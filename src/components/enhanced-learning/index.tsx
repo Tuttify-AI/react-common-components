@@ -82,7 +82,7 @@ const EnhancedLearning: FC<Props> = ({
   );
 
   const handleSubmit = useCallback(
-    (question: { answer_id: number | undefined; reason: string }) => {
+    (question: { answer_id: number | string | undefined; reason: string }) => {
       const payload = {
         interaction_type: 'user_answered_someone',
         entity_id: '',

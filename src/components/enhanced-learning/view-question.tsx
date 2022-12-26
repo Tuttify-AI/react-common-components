@@ -176,13 +176,17 @@ const ViewQuestion: React.FC<ViewQuestionType> = ({
 
   useEffect(() => {
     if (answers && answeredBy) {
-      const answerIndex = Number(answeredBy.answer_id) - 1;
-      if (answerIndex >= 0) {
-        setAnswer(answers[answerIndex].text);
+      if ([QUESTION_TYPE.AGREE, QUESTION_TYPE.RANGE].includes(type)) {
+        setAnswer(answeredBy.answer_id);
+      } else {
+        const answerIndex = Number(answeredBy.answer_id) - 1;
+        if (answerIndex >= 0) {
+          setAnswer(answers[answerIndex].text);
+        }
       }
     }
     setSubmitted(false);
-  }, [_id, answers, answeredBy]);
+  }, [_id, answers, answeredBy, type]);
 
   return (
     <Grid className={classes.questionCard}>
@@ -204,7 +208,15 @@ const ViewQuestion: React.FC<ViewQuestionType> = ({
 
         {type === QuestionType.Range ? (
           <Grid className={classes.rangeSlider}>
-            <Slider min={0} max={10} step={1} marks={marks} color="secondary" onChange={handleRangeChange} />
+            <Slider
+              min={0}
+              max={10}
+              step={1}
+              marks={marks}
+              color="secondary"
+              value={Number(answer)}
+              onChange={handleRangeChange}
+            />
           </Grid>
         ) : type === QUESTION_TYPE.AGREE ? (
           <Grid className={classes.agreeDisagree}>
