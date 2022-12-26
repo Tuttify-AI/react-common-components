@@ -53,7 +53,7 @@ const folderBuilds = getFolders('./src').map(folder => {
       format: 'esm',
     },
     plugins: subfolderPlugins(folder),
-    external: ['react', 'react-dom'],
+    external: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons'],
   };
 });
 
@@ -69,7 +69,7 @@ export default [
       },
     ],
     plugins,
-    external: ['react', 'react-dom'],
+    external: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons'],
   },
   ...folderBuilds,
   {
@@ -83,6 +83,6 @@ export default [
       },
     ],
     plugins,
-    external: ['react', 'react-dom', 'socket.io-client'],
+    external: ['react', 'react-dom', 'socket.io-client', '@material-ui/core', '@material-ui/icons'],
   },
 ];

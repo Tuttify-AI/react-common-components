@@ -84,6 +84,7 @@
       position: relative;
 
       .question-mark {
+        min-width: unset;
         width: 64px;
         height: 64px;
         border-radius: 32px;
