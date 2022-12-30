@@ -7,14 +7,24 @@ import HelpSubmit from './help-submit';
 import ViewQuestion from './view-question';
 import { getTabId } from 'src/utils/session-storage';
 import { makeStyles } from '@material-ui/core/styles';
+import { UserModel } from 'src/types/users';
+import AskedList from './asked-list';
 
 const useStyles = makeStyles(() => ({
   dialogContent: {
-    minHeight: 500,
+    minHeight: 600,
+    overflowY: 'hidden',
   },
   dialogTitle: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  tabsContent: {
+    height: 600,
+    overflowY: 'auto',
+    '& div:first-child': {
+      paddingRight: 20,
+    },
   },
 }));
 
@@ -29,13 +39,6 @@ type FetchAskedQuestionsParams = {
   page_size: number;
 };
 
-interface AskedListItemProps {
-  userId: string;
-  title: string | null | undefined;
-  selected: boolean;
-  onClick?: () => void;
-}
-
 interface Props {
   isOpen: boolean;
   sessionId: string;
@@ -47,8 +50,9 @@ interface Props {
   askedQuestions: any;
   interactAskSomeone: (params: any) => void;
   interactQuestion: (params: any) => void;
-  AskedListItem: FC<AskedListItemProps>;
   toggleItems: ToggleItemsType[];
+  getUser: (userId: string) => Promise<void>;
+  user: UserModel | null;
 }
 
 const EnhancedLearning: FC<Props> = ({
@@ -62,8 +66,9 @@ const EnhancedLearning: FC<Props> = ({
   askedQuestions,
   interactAskSomeone,
   interactQuestion,
-  AskedListItem,
   toggleItems,
+  getUser,
+  user,
 }) => {
   const classes = useStyles();
   const [questionType, setQuestionType] = useState(1);
@@ -130,59 +135,59 @@ const EnhancedLearning: FC<Props> = ({
             <Toggle items={toggleItems} value={questionType} onChange={handleQuestionTypeChange} />
           </Grid>
 
-          {questionType === 2 && (
-            <>
-              <Grid item xs={6}>
-                <Box py={2}>Try to help answer your friends questions</Box>
+          <Grid item container justifyContent="center" xs={12} className={classes.tabsContent}>
+            {questionType === 2 && (
+              <>
+                <Grid item xs={5}>
+                  <Box py={2}>Try to help answer your friends questions</Box>
 
-                {otherQuestions.map((item, index) => (
-                  <AskedListItem
-                    key={index}
-                    userId={item.asked_by[0]}
-                    title={item?.question?.text}
-                    selected={questionItem?.question._id === item.question._id}
-                    onClick={() => setQuestionItem(item)}
+                  <AskedList
+                    questions={otherQuestions}
+                    isGetUserIdFromAskedBy
+                    getUser={getUser}
+                    user={user}
+                    questionItem={questionItem}
+                    setQuestionItem={setQuestionItem}
                   />
-                ))}
-              </Grid>
+                </Grid>
 
-              <Grid item xs={6}>
-                {questionItem && (
-                  <HelpSubmit {...questionItem.question} key={questionItem.question._id} submit={handleSubmit} />
-                )}
-              </Grid>
-            </>
-          )}
+                <Grid item xs={6}>
+                  {questionItem && (
+                    <HelpSubmit {...questionItem.question} key={questionItem.question._id} submit={handleSubmit} />
+                  )}
+                </Grid>
+              </>
+            )}
 
-          {questionType === 1 && (
-            <>
-              <Grid item xs={6}>
-                <Box py={2}>Here are your questions waiting for answers.</Box>
+            {questionType === 1 && (
+              <>
+                <Grid item xs={5}>
+                  <Box py={2}>Here are your questions waiting for answers.</Box>
 
-                {myQuestions.map((item, index) => (
-                  <AskedListItem
-                    key={index}
-                    userId={item.answered_by[0]?.user_id}
-                    title={item?.question?.text}
-                    selected={questionItem?.question._id === item.question._id}
-                    onClick={() => setQuestionItem(item)}
+                  <AskedList
+                    questions={myQuestions}
+                    isGetUserIdFromAskedBy={false}
+                    getUser={getUser}
+                    user={user}
+                    questionItem={questionItem}
+                    setQuestionItem={setQuestionItem}
                   />
-                ))}
-              </Grid>
+                </Grid>
 
-              <Grid item xs={6}>
-                {questionItem && (
-                  <ViewQuestion
-                    {...questionItem.question}
-                    key={questionItem.question._id}
-                    answeredBy={questionItem.answered_by[0]}
-                    submit={handleQuestionSubmit}
-                    interactAskSomeone={interactAskSomeone}
-                  />
-                )}
-              </Grid>
-            </>
-          )}
+                <Grid item xs={6}>
+                  {questionItem && (
+                    <ViewQuestion
+                      {...questionItem.question}
+                      key={questionItem.question._id}
+                      answeredBy={questionItem.answered_by[0]}
+                      submit={handleQuestionSubmit}
+                      interactAskSomeone={interactAskSomeone}
+                    />
+                  )}
+                </Grid>
+              </>
+            )}
+          </Grid>
         </Grid>
       </DialogContent>
     </Dialog>
