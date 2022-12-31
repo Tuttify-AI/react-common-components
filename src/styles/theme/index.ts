@@ -1,33 +1,6 @@
 import { colors, darken } from '@material-ui/core';
 import { createTheme } from '@material-ui/core/styles';
 
-export const backgrounds = {
-  white: '#fafafa',
-  black: '#212121',
-  disabled: '#d9d9d9',
-  babyBoard: '#d6fbe4',
-  conference: '#ff6502',
-  invitationCard: 'rgba(255,255,255,0.8)',
-  grey_1: '#e9e9e9',
-  grey_2: '#fafafa',
-  grey_4: '#6e6e6f',
-  grey_3: '#eaeaea',
-  grey_5: 'rgba(54, 52, 61, 0.9)',
-  p2p: '#00bcd4',
-  divider: '#c4c4c4',
-  cyan: '#00cdd5',
-  blue: '#326bb4',
-  orange: '#ff9100',
-  yellow: '#ffac00',
-  purple: '#8900ff',
-  lightBlue: '#00e5ff',
-  red: '#e02020',
-  lightCyan: 'rgba(0, 205, 213, 0.1)',
-  lightOrange: 'rgba(255, 162, 0, 0.1)',
-  lightYellow: 'rgba(255, 204, 0, 0.1)',
-  lightPurple: 'rgba(188, 126, 255, 0.1)',
-};
-
 const theme = createTheme({
   overrides: {
     MuiSelect: {
@@ -148,7 +121,32 @@ const theme = createTheme({
     text: {
       primary: '#000000',
     },
-    backgrounds,
+    backgrounds: {
+      white: '#fafafa',
+      black: '#212121',
+      disabled: '#d9d9d9',
+      babyBoard: '#d6fbe4',
+      conference: '#ff6502',
+      invitationCard: 'rgba(255,255,255,0.8)',
+      grey_1: '#e9e9e9',
+      grey_2: '#fafafa',
+      grey_4: '#6e6e6f',
+      grey_3: '#eaeaea',
+      grey_5: 'rgba(54, 52, 61, 0.9)',
+      p2p: '#00bcd4',
+      divider: '#c4c4c4',
+      cyan: '#00cdd5',
+      blue: '#326bb4',
+      orange: '#ff9100',
+      yellow: '#ffac00',
+      purple: '#8900ff',
+      lightBlue: '#00e5ff',
+      red: '#e02020',
+      lightCyan: 'rgba(0, 205, 213, 0.1)',
+      lightOrange: 'rgba(255, 162, 0, 0.1)',
+      lightYellow: 'rgba(255, 204, 0, 0.1)',
+      lightPurple: 'rgba(188, 126, 255, 0.1)',
+    },
     fonts: {
       purple_1: '#9e45ff',
       purple_2: '#8900ff',
