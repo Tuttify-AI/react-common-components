@@ -142,6 +142,7 @@ const theme = createTheme({
       purple: '#8900ff',
       lightBlue: '#00e5ff',
       red: '#e02020',
+      green: '#44d7b6',
       lightCyan: 'rgba(0, 205, 213, 0.1)',
       lightOrange: 'rgba(255, 162, 0, 0.1)',
       lightYellow: 'rgba(255, 204, 0, 0.1)',
