@@ -1,0 +1,30 @@
+@import "../../scss/variables";
+
+.guide {
+  background-color: $guide-background;
+  color: $guide-color;
+  border-radius: 8px;
+  padding: 0 30px;
+  font-size: 12px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  animation-duration: 0.3s;
+  animation-name: expand;
+  cursor: pointer;
+  &.close {
+    animation-name: shrink;
+    overflow: hidden;
+    transform: scaleX(0.5);
+  }
+}
+
+@keyframes shrink {
+  from {transform: scaleX(1);}
+  to {transform: scaleX(0.5);}
+}
+
+@keyframes expand {
+  from {transform: scaleX(0.5);}
+  to {transform: scaleX(1);}
+}
