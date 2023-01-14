@@ -22,7 +22,6 @@ export const UserGuide = ({ text, open }: Props) => {
     };
   }, []);
 
-  console.log({ isOpen });
   return (
     <div
       className={classnames('guide', {
