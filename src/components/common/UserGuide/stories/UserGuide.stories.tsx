@@ -8,7 +8,7 @@ export default {
   component: UserGuide,
   args: {
     text: 'Tap any card above to play a sound.',
-    close: false,
+    open: true,
   },
 } as ComponentMeta<typeof UserGuide>;
 

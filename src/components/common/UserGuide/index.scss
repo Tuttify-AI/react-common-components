@@ -9,8 +9,9 @@
   height: 35px;
   display: inline-flex;
   align-items: center;
-  animation-duration: 0.3s;
+  animation-duration: 0.5s;
   animation-name: expand;
+  transform-origin: 0% 50%;
   cursor: pointer;
   &.close {
     animation-name: shrink;
