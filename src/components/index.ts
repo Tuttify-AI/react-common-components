@@ -1,8 +1,8 @@
 import './index.scss';
 
-import Image from './common/image';
+import { Image, UserGuide } from './common';
 import Title from './title';
 import SocketChat from './socket-chat';
 import EnhancedLearning from './enhanced-learning';
 
-export { Image, Title, SocketChat, EnhancedLearning };
+export { Image, UserGuide, Title, SocketChat, EnhancedLearning };
