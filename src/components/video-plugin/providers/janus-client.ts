@@ -1,5 +1,4 @@
 import { log } from '../utils/log';
-
 import * as sdpTransform from 'sdp-transform';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import { getTransceiver } from '../utils/getTransceiver';
@@ -83,11 +82,11 @@ interface JanusSubscriberOptions {
 class JanusPublisher extends EventTarget {
   id: string;
   room_id: string;
-  handle_id: number | null | undefined;
+  handle_id: number | any;
   ptype: 'publisher';
   transaction: (request: any) => Promise<any>;
   pc: RTCPeerConnection;
-  stream: MediaStream | undefined;
+  stream: MediaStream | any;
   candidates: RTCIceCandidateInit[];
   publishing: boolean;
   volume: {
@@ -154,10 +153,7 @@ class JanusPublisher extends EventTarget {
   }
 
   public suspendStream = async () => {
-    const tracks = this.stream?.getTracks();
-    if (!tracks) {
-      return;
-    }
+    const tracks = this.stream.getTracks();
     for (let i = 0; i < tracks.length; i++) {
       const track = tracks[i];
       await track.stop();
@@ -374,11 +370,11 @@ class JanusPublisher extends EventTarget {
       }
     };
 
-    this.pc.onconnectionstatechange = () => {
+    this.pc.onconnectionstatechange = event => {
       this.logger.info(`[${this.ptype}] ${this.id} onconnectionstatechange`);
     };
 
-    this.pc.oniceconnectionstatechange = () => {
+    this.pc.oniceconnectionstatechange = e => {
       this.iceConnectionState = this.pc.iceConnectionState;
 
       if (this.pc.iceConnectionState === 'disconnected') {
@@ -779,7 +775,7 @@ class JanusPublisher extends EventTarget {
 class JanusSubscriber extends EventTarget {
   id: string;
   room_id: string;
-  handle_id: number | undefined;
+  handle_id: number | any;
   feed: string;
   ptype: 'subscriber';
   transaction: any;
@@ -1232,7 +1228,7 @@ class JanusClient {
   terminated: boolean;
   connected: boolean;
   initializing: boolean;
-  publisher?: JanusPublisher;
+  publisher: JanusPublisher;
   subscribers: { [id: string]: JanusSubscriber };
   private calls: { [id: string]: (message: any) => void };
   keepAlive: any;
@@ -1241,7 +1237,7 @@ class JanusClient {
   websocketOptions: ReconnectingWebsocketOptions;
   activateSubscriber: (subscriber: JanusSubscriber) => Promise<void>;
   onPublisher: (publisher: JanusPublisher) => void;
-  notifyConnected?: (error?: any) => void;
+  notifyConnected: (error?: any) => void;
   onError: (error: any) => void;
   onMigrate: (handle_id: number) => void;
   onClosed: (handle_id: number) => void;
@@ -1392,7 +1388,7 @@ class JanusClient {
       this.notifyConnected({
         cancel: true,
       });
-      delete this.notifyConnected;
+      // delete this.notifyConnected;
     }
 
     try {
@@ -1400,10 +1396,10 @@ class JanusClient {
         try {
           this.publisher.terminateInstantly();
           this.publisher.transaction = (...args) => Promise.resolve();
-          delete this.publisher;
+          // delete this.publisher;
         } catch (error) {
           if (error && error.message && error.message.includes("Can't unpublish, not published")) {
-            this.logger.info(`Can't unpublish, not published ${this.publisher?.handle_id}...`);
+            this.logger.info(`Can't unpublish, not published ${this.publisher.handle_id}...`);
           } else {
             //if connection is lost just ignore the errors
             if (this.connected) {
@@ -1473,7 +1469,7 @@ class JanusClient {
       this.notifyConnected({
         cancel: true,
       });
-      delete this.notifyConnected;
+      // delete this.notifyConnected;
     }
 
     this.logger.info(`terminate: close connection...`);
@@ -1560,7 +1556,7 @@ class JanusClient {
       try {
         await this.publisher.terminate();
         this.publisher.transaction = (...args) => Promise.resolve();
-        delete this.publisher;
+        // delete this.publisher;
       } catch (error) {}
     }
 
@@ -1609,10 +1605,10 @@ class JanusClient {
       try {
         await this.publisher.terminate();
         this.publisher.transaction = (...args) => Promise.resolve();
-        delete this.publisher;
+        // delete this.publisher;
       } catch (error) {
         if (error && error.message && error.message.includes("Can't unpublish, not published")) {
-          this.logger.info(`Can't unpublish, not published ${this.publisher?.handle_id}...`);
+          this.logger.info(`Can't unpublish, not published ${this.publisher.handle_id}...`);
         } else {
           //if connection is lost just ignore the errors
           if (this.connected) {
@@ -1671,7 +1667,7 @@ class JanusClient {
 
     if (this.notifyConnected) {
       this.notifyConnected();
-      delete this.notifyConnected;
+      // delete this.notifyConnected;
     }
 
     if (this.keepAlive) {
@@ -2053,7 +2049,8 @@ class JanusClient {
       this.logger.info(`transaction - ${request.type} - ${id}`);
     }
 
-    let r: string | null = null;
+    let r: any = null;
+    let p: any = null;
 
     try {
       r = JSON.stringify(request);
@@ -2061,7 +2058,7 @@ class JanusClient {
       return Promise.reject(error);
     }
 
-    const p = new Promise((resolve, reject) => {
+    p = new Promise((resolve, reject) => {
       const t = setTimeout(() => {
         this.logger.info(`timeout called for ${request.type} - ${id} - ${!!this.calls[id]}`);
 
