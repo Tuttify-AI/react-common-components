@@ -109,7 +109,9 @@ export class Controls extends Component<ControlsProps, ControlsState> {
             marginRight: '7px',
           }}
         >
-          <FcEndCall
+          <img
+            src={FcEndCall}
+            alt="End Call Icon"
             style={{
               width: '100%',
               height: '100%',
