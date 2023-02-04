@@ -10,6 +10,7 @@ import generatePackageJson from 'rollup-plugin-generate-package-json';
 import json from '@rollup/plugin-json';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import scss from 'rollup-plugin-scss';
+import svg from 'rollup-plugin-svg';
 
 const plugins = [
   peerDepsExternal(),
@@ -30,6 +31,7 @@ const plugins = [
     fileName: 'bundle.css',
     failOnError: true,
   }),
+  svg(),
 ];
 const subfolderPlugins = folderName => [
   ...plugins,
@@ -53,7 +55,7 @@ const folderBuilds = getFolders('./src').map(folder => {
       format: 'esm',
     },
     plugins: subfolderPlugins(folder),
-    external: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons'],
+    external: ['react', 'react-dom', 'react-rnd', '@material-ui/core', '@material-ui/icons'],
   };
 });
 
@@ -69,7 +71,7 @@ export default [
       },
     ],
     plugins,
-    external: ['react', 'react-dom', '@material-ui/core', '@material-ui/icons'],
+    external: ['react', 'react-dom', 'react-rnd', '@material-ui/core', '@material-ui/icons'],
   },
   ...folderBuilds,
   {
@@ -83,6 +85,6 @@ export default [
       },
     ],
     plugins,
-    external: ['react', 'react-dom', 'socket.io-client', '@material-ui/core', '@material-ui/icons'],
+    external: ['react', 'react-dom', 'react-rnd', 'socket.io-client', '@material-ui/core', '@material-ui/icons'],
   },
 ];

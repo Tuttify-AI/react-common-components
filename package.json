@@ -1,6 +1,6 @@
 {
   "name": "@blipiqlabs/react-common-components",
-  "version": "1.1.15",
+  "version": "1.2.0",
   "license": "MIT",
   "author": "blipiq",
   "main": "build/index.js",
@@ -8,36 +8,6 @@
   "typings": "build/index.d.ts",
   "files": [
     "build"
-  ],
-  "peerDependencies": {
-    "@material-ui/core": ">=4.12.1",
-    "@material-ui/icons": ">=4.9.1",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2",
-    "socket.io-client": ">=4.3.2"
-  },
-  "dependencies": {
-    "@types/material-ui": "^0.21.12",
-    "@types/node": "^18.8.3",
-    "@types/react": "^17.0.42",
-    "@types/react-dom": "^17.0.14",
-    "bufferutil": "^4.0.6",
-    "classnames": "^2.3.2",
-    "lodash.isequal": "^4.5.0",
-    "lodash.throttle": "^4.1.1",
-    "mime-types": "^2.1.35",
-    "node-sass": "^8.0.0",
-    "react-helmet": "^6.1.0",
-    "react-responsive": "^9.0.0-beta.6",
-    "react-virtualized": "^9.22.3",
-    "socket.io-client": "^4.5.2",
-    "utf-8-validate": "^5.0.9"
-  },
-  "keywords": [
-    "react",
-    "hook",
-    "websocket",
-    "typescript"
   ],
   "scripts": {
     "lint": "eslint . --ext ts --ext tsx",
@@ -50,6 +20,45 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "peerDependencies": {
+    "@material-ui/core": ">=4.12.1",
+    "@material-ui/icons": ">=4.9.1",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2",
+    "react-rnd": ">=10.3.5",
+    "socket.io-client": ">=4.3.2"
+  },
+  "dependencies": {
+    "@types/material-ui": "^0.21.12",
+    "@types/node": "^18.8.3",
+    "@types/react": "^17.0.42",
+    "@types/react-dom": "^17.0.14",
+    "agora-rtc-sdk-ng": "^4.10.2",
+    "bufferutil": "^4.0.6",
+    "classnames": "^2.3.2",
+    "consola": "^2.15.3",
+    "ifvisible.js": "^1.0.6",
+    "is-online": "^9.0.1",
+    "lodash.isequal": "^4.5.0",
+    "lodash.throttle": "^4.1.1",
+    "mime-types": "^2.1.35",
+    "node-sass": "^8.0.0",
+    "nosleep.js": "^0.12.0",
+    "react-helmet": "^6.1.0",
+    "react-responsive": "^9.0.0-beta.6",
+    "react-virtualized": "^9.22.3",
+    "reconnecting-websocket": "^4.4.0",
+    "sdp-transform": "^2.14.1",
+    "socket.io-client": "^4.5.2",
+    "uniqid": "^5.4.0",
+    "utf-8-validate": "^5.0.9"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "websocket",
+    "typescript"
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -112,11 +121,13 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-rnd": "^10.3.5",
     "rollup": "^2.79.1",
     "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-polyfill-node": "^0.10.2",
     "rollup-plugin-scss": "^4.0.0",
+    "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.57.1",
