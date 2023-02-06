@@ -305,7 +305,9 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
         }
       }),
 
-      this.actions.pipe(concatMap(p => from(p))).subscribe(result => {}),
+      this.actions.pipe(concatMap(p => from(p))).subscribe(() => {
+        //
+      }),
 
       fromEvent(window, 'beforeunload').subscribe(() => this.cleanup()),
 
@@ -413,7 +415,7 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
     const first = data.predictions.detections[0];
 
     if (first) {
-      const { x, y, w, h, age, gender, disgust, angry, fear, happy, neutral, sad, surprise } = first;
+      const { x, y, age, gender, disgust, angry, fear, happy, neutral, sad, surprise } = first;
 
       const emotions = {
         disgust,
@@ -772,7 +774,9 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
       let data_info = ``;
       try {
         data_info = JSON.stringify(this.props?.janusConfig);
-      } catch (error) {}
+      } catch (error) {
+        //
+      }
       onError(
         error,
         `

@@ -370,11 +370,11 @@ class JanusPublisher extends EventTarget {
       }
     };
 
-    this.pc.onconnectionstatechange = event => {
+    this.pc.onconnectionstatechange = () => {
       this.logger.info(`[${this.ptype}] ${this.id} onconnectionstatechange`);
     };
 
-    this.pc.oniceconnectionstatechange = e => {
+    this.pc.oniceconnectionstatechange = () => {
       this.iceConnectionState = this.pc.iceConnectionState;
 
       if (this.pc.iceConnectionState === 'disconnected') {
@@ -392,13 +392,13 @@ class JanusPublisher extends EventTarget {
       this.logger.info(`${this.id} [${this.ptype}] onnegotiationneeded ${this.pc.signalingState}`);
     };
 
-    this.pc.onicegatheringstatechange = e => {
+    this.pc.onicegatheringstatechange = () => {
       this.iceGatheringState = this.pc.iceGatheringState;
 
       this.logger.info(`${this.id} [${this.ptype}] onicegatheringstatechange ${this.pc.iceGatheringState}`);
     };
 
-    this.pc.onsignalingstatechange = e => {
+    this.pc.onsignalingstatechange = () => {
       this.signalingState = this.pc.signalingState;
 
       this.logger.info(`${this.id} [${this.ptype}] onicegatheringstatechange ${this.pc.signalingState}`);
@@ -530,7 +530,9 @@ class JanusPublisher extends EventTarget {
     try {
       const sdp = sdpTransform.parse(offer.sdp);
       log.info(sdp);
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
 
     this.pc.setLocalDescription(offer);
 
@@ -950,15 +952,15 @@ class JanusSubscriber extends EventTarget {
 
       this.stream = stream;
 
-      stream.addEventListener('addtrack', t => {
+      stream.addEventListener('addtrack', () => {
         this.logger.info(`${this.id} [subscriber] track add`);
       });
 
-      stream.addEventListener('removetrack', t => {
+      stream.addEventListener('removetrack', () => {
         this.logger.info(`${this.id} [subscriber] track remove`);
       });
 
-      event.track.addEventListener('ended', e => {
+      event.track.addEventListener('ended', () => {
         this.logger.info(`${this.id} [subscriber] track onended`);
 
         const event = new Event('track-ended');
@@ -966,7 +968,7 @@ class JanusSubscriber extends EventTarget {
         this.dispatchEvent(event);
       });
 
-      event.track.addEventListener('mute', e => {
+      event.track.addEventListener('mute', () => {
         this.logger.info(`${this.id} [subscriber] track muted`);
 
         const event = new Event('mute');
@@ -974,7 +976,7 @@ class JanusSubscriber extends EventTarget {
         this.dispatchEvent(event);
       });
 
-      event.track.addEventListener('unmute', e => {
+      event.track.addEventListener('unmute', () => {
         this.logger.info(`${this.id} [subscriber] track unmuted`);
 
         const event = new Event('unmute');
@@ -995,7 +997,7 @@ class JanusSubscriber extends EventTarget {
       console.log(event);
     };
 
-    this.pc.oniceconnectionstatechange = event => {
+    this.pc.oniceconnectionstatechange = () => {
       this.iceConnectionState = this.pc.iceConnectionState;
 
       if (this.pc.iceConnectionState === 'disconnected') {
@@ -1013,13 +1015,13 @@ class JanusSubscriber extends EventTarget {
       this.logger.error(error);
     };
 
-    this.pc.onicegatheringstatechange = e => {
+    this.pc.onicegatheringstatechange = () => {
       this.iceGatheringState = this.pc.iceGatheringState;
 
       this.logger.info(this.id, this.pc.iceGatheringState);
     };
 
-    this.pc.onsignalingstatechange = e => {
+    this.pc.onsignalingstatechange = () => {
       this.signalingState = this.pc.signalingState;
 
       this.logger.info(`${this.id} onsignalingstatechange ${this.pc.signalingState}`);
@@ -1395,7 +1397,7 @@ class JanusClient {
       if (this.publisher) {
         try {
           this.publisher.terminateInstantly();
-          this.publisher.transaction = (...args) => Promise.resolve();
+          this.publisher.transaction = () => Promise.resolve();
           // delete this.publisher;
         } catch (error) {
           if (error && error.message && error.message.includes("Can't unpublish, not published")) {
@@ -1416,7 +1418,7 @@ class JanusClient {
 
         try {
           subscriber.terminateInstantly();
-          subscriber.transaction = (...args) => Promise.resolve();
+          subscriber.transaction = () => Promise.resolve();
           delete this.subscribers[id];
         } catch (error) {
           //if connection is lost just ignore the errors
@@ -1555,9 +1557,11 @@ class JanusClient {
       log.info(`janus join publisher already exist - try to cleanup`);
       try {
         await this.publisher.terminate();
-        this.publisher.transaction = (...args) => Promise.resolve();
+        this.publisher.transaction = () => Promise.resolve();
         // delete this.publisher;
-      } catch (error) {}
+      } catch (error) {
+        //
+      }
     }
 
     this.publisher = new JanusPublisher({
@@ -1604,7 +1608,7 @@ class JanusClient {
       this.logger.info(`terminate publisher ${this.publisher.handle_id}...`);
       try {
         await this.publisher.terminate();
-        this.publisher.transaction = (...args) => Promise.resolve();
+        this.publisher.transaction = () => Promise.resolve();
         // delete this.publisher;
       } catch (error) {
         if (error && error.message && error.message.includes("Can't unpublish, not published")) {
@@ -1637,7 +1641,7 @@ class JanusClient {
 
       try {
         await subscriber.terminate();
-        subscriber.transaction = (...args) => Promise.resolve();
+        subscriber.transaction = () => Promise.resolve();
         delete this.subscribers[id];
       } catch (error) {
         //if connection is lost just ignore the errors
@@ -1832,8 +1836,10 @@ class JanusClient {
       } catch (error) {
         try {
           await subscriber.terminate();
-        } catch (error) {}
-        subscriber.transaction = (...args) => Promise.resolve();
+        } catch (error) {
+          //
+        }
+        subscriber.transaction = () => Promise.resolve();
         delete this.subscribers[feed];
         this.onError(error);
       }
@@ -1911,7 +1917,7 @@ class JanusClient {
       if (subscriber.feed == unpublished) {
         try {
           await subscriber.terminate();
-          subscriber.transaction = (...args) => Promise.resolve();
+          subscriber.transaction = () => Promise.resolve();
           delete this.subscribers[subscriber.feed];
         } catch (error) {
           this.onError(error);
@@ -1955,7 +1961,7 @@ class JanusClient {
       if (subscriber.feed == leaving) {
         try {
           await subscriber.terminate();
-          subscriber.transaction = (...args) => Promise.resolve();
+          subscriber.transaction = () => Promise.resolve();
           delete this.subscribers[subscriber.feed];
         } catch (error) {
           this.onError(error);
@@ -1984,7 +1990,9 @@ class JanusClient {
 
     try {
       m = JSON.stringify(json);
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
 
     this.logger.info(`on internal ${m}`);
 
@@ -2036,7 +2044,9 @@ class JanusClient {
       let info = ``;
       try {
         info = JSON.stringify(request);
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
       const error = new Error(`client should be initialized before you can make transaction \n ${info}`);
       throw error;
     }

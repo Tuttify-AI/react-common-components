@@ -9,7 +9,9 @@ export const getScreenOrientation = () => {
     if (isNil(orientation)) {
       orientation = path(['orientation', 'angle'], screen);
     }
-  } catch (error) {}
+  } catch (error) {
+    //
+  }
 
   return orientation;
 };
