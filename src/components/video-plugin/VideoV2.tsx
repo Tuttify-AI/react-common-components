@@ -1134,7 +1134,7 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
   // }, 3000)
 
   endCall = throttle(() => {
-    // this.leaveRoom();
+    this.leaveRoom();
   }, 3000);
 
   leaveRoom = () => {

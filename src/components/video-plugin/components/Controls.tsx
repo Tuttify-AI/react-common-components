@@ -59,16 +59,14 @@ export class Controls extends Component<ControlsProps, ControlsState> {
           }}
         >
           {audioEnabled ? (
-            <img
-              src={BsFillMicFill}
-              alt="Mic Icon"
+            <BsFillMicFill
               style={{
                 width: '100%',
                 height: '100%',
               }}
             />
           ) : (
-            <img src={BsFillMicMuteFill} alt="Mic Off Icon" />
+            <BsFillMicMuteFill style={{}} />
           )}
         </div>
         <div
@@ -86,16 +84,14 @@ export class Controls extends Component<ControlsProps, ControlsState> {
           }}
         >
           {videoEnabled ? (
-            <img
-              src={BsCameraVideoFill}
-              alt="Video Icon"
+            <BsCameraVideoFill
               style={{
                 width: '100%',
                 height: '100%',
               }}
             />
           ) : (
-            <img src={BsCameraVideoOffFill} alt="Video Off Icon" />
+            <BsCameraVideoOffFill style={{}} />
           )}
         </div>
         <div
@@ -113,9 +109,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
             marginRight: '7px',
           }}
         >
-          <img
-            src={FcEndCall}
-            alt="End Call Icon"
+          <FcEndCall
             style={{
               width: '100%',
               height: '100%',

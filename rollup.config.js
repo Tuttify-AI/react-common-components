@@ -10,7 +10,8 @@ import generatePackageJson from 'rollup-plugin-generate-package-json';
 import json from '@rollup/plugin-json';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import scss from 'rollup-plugin-scss';
-import svg from 'rollup-plugin-svg';
+import postcss from 'rollup-plugin-postcss';
+import svgr from '@svgr/rollup';
 
 const plugins = [
   peerDepsExternal(),
@@ -31,7 +32,8 @@ const plugins = [
     fileName: 'bundle.css',
     failOnError: true,
   }),
-  svg(),
+  svgr(),
+  postcss(),
 ];
 const subfolderPlugins = folderName => [
   ...plugins,
