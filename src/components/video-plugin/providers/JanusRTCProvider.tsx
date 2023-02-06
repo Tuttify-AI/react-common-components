@@ -115,8 +115,12 @@ class JanusRTCProvider {
       token,
       appid,
       logger: {
-        enable: () => {},
-        disable: () => {},
+        enable: () => {
+          //
+        },
+        disable: () => {
+          //
+        },
         ...log,
       },
       mediaConstraints,
@@ -323,7 +327,9 @@ class JanusRTCProvider {
         if (video) {
           try {
             video.remove();
-          } catch (error) {}
+          } catch (error) {
+            //
+          }
         }
       }
 
@@ -354,7 +360,9 @@ class JanusRTCProvider {
         if (video) {
           try {
             video.remove();
-          } catch (error) {}
+          } catch (error) {
+            //
+          }
         }
       }
 
@@ -529,11 +537,15 @@ class JanusRTCProvider {
     try {
       stats = await this.client.publisher?.pc.getStats();
       stats = Array.from(stats.entries());
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
 
     try {
       codecs = this.client.getAvailableCodecs();
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
 
     return {
       stats,

@@ -480,7 +480,7 @@ class AgoraRTCProvider {
 
   //TODO review
   setVideoDevice = async (videoDeviceId: string) => {
-    const { callbacks, user_id } = this.options;
+    const { callbacks } = this.options;
 
     const { onError, addTrack, removeTrack } = callbacks;
 
@@ -491,7 +491,9 @@ class AgoraRTCProvider {
 
       try {
         await this.localVideo.setEnabled(false);
-      } catch (error) {}
+      } catch (error) {
+        //
+      }
 
       await this.localVideo.setDevice(videoDeviceId);
       await this.localVideo.setEnabled(true);

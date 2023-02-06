@@ -8,7 +8,9 @@ export const waitUntil = async (f, timeout, defaultInterval?) => {
 
     try {
       done = await f(time);
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     if (done) {
       resolve();

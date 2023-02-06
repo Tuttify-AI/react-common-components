@@ -9,13 +9,7 @@ interface ContextMenuItemProps {
   disabled?: boolean;
 }
 
-interface ContextMenuItemState {}
-
-export class ContextMenuItem extends Component<ContextMenuItemProps, ContextMenuItemState> {
-  constructor(props) {
-    super(props);
-  }
-
+export class ContextMenuItem extends Component<ContextMenuItemProps, Record<string, never>> {
   render() {
     const { highlighted, id, disabled } = this.props;
 
