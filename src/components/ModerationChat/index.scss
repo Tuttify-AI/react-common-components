@@ -1,0 +1,71 @@
+.moderation-chat-container {
+  padding: 10px;
+  width: 96%;
+
+  &.hidden {
+    visibility: hidden;
+  }
+
+  .messages {
+    border: 2px solid #F5F5F5;
+    height: 200px;
+    padding: 20px;
+    overflow: auto;
+
+    .message {
+      display: flex;
+      margin-bottom: 10px;
+      font-family: 'SF Pro';
+      font-size: 0.9em;
+      color: #36343D;
+
+      div:nth-child(1) {
+        width: 13%;
+      }
+
+      div:nth-child(2) {
+        width: 70%;
+      }
+
+      div:nth-child(3) {
+        width: 17%;
+        text-align: right;
+        font-size: 0.8em;
+        color: #6E6E6F;
+      }
+    }
+  }
+
+  .form {
+    position: relative;
+
+    textarea {
+      width: 98.6%;
+      height: 40px;
+      padding: 10px;
+      padding-right: 0;
+      border: 1px solid #F5F5F5;
+      background-color: #F5F5F5;
+      resize: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      color: #00A6A8;
+      background: none;
+      border: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 10px;
+      cursor: pointer;
+
+      svg {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
