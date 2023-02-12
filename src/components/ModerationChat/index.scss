@@ -16,19 +16,18 @@
       display: flex;
       margin-bottom: 10px;
       font-family: 'SF Pro';
-      font-size: 0.9em;
       color: #36343D;
 
       div:nth-child(1) {
-        width: 13%;
+        width: 16%;
       }
 
       div:nth-child(2) {
-        width: 70%;
+        width: 66%;
       }
 
       div:nth-child(3) {
-        width: 17%;
+        width: 18%;
         text-align: right;
         font-size: 0.8em;
         color: #6E6E6F;
@@ -40,7 +39,7 @@
     position: relative;
 
     textarea {
-      width: 98.6%;
+      width: 100%;
       height: 40px;
       padding: 10px;
       padding-right: 0;
@@ -60,7 +59,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      padding: 10px;
+      padding: 6px;
       cursor: pointer;
 
       svg {
