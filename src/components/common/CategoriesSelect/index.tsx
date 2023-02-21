@@ -43,6 +43,7 @@ const CategoriesSelect: React.FC<Props> = ({
             value={categoriesState.subCategory}
             onChange={updateCategoriesState('subCategory')}
             label={labelSubCategory}
+            required={required && categoriesState.category.subcategories.length > 0}
           />
         </Grid>
       ) : null}
@@ -53,6 +54,7 @@ const CategoriesSelect: React.FC<Props> = ({
             value={categoriesState.subSubCategory}
             onChange={updateCategoriesState('subSubCategory')}
             label={labelSubSubCategory}
+            required={required && categoriesState.subCategory.subcategories.length > 0}
           />
         </Grid>
       ) : null}
