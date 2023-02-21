@@ -25,7 +25,15 @@ const CategoryField: React.FC<Props> = ({ options, value, onChange, label = '', 
   return (
     <>
       <InputLabel required={required}>{label}</InputLabel>
-      <TextField select size="medium" fullWidth variant="outlined" onChange={handleChange} value={value?.name ?? ''}>
+      <TextField
+        required={required}
+        select
+        size="medium"
+        fullWidth
+        variant="outlined"
+        onChange={handleChange}
+        value={value?.name ?? ''}
+      >
         {options.map(option => (
           <MenuItem key={option.name} value={option.name}>
             {option.name}
