@@ -54,7 +54,7 @@ const CategoriesSelect: React.FC<Props> = ({
             value={categoriesState.subSubCategory}
             onChange={updateCategoriesState('subSubCategory')}
             label={labelSubSubCategory}
-            required={required}
+            required={false}
           />
         </Grid>
       ) : null}
