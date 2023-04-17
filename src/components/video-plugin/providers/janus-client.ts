@@ -1756,7 +1756,7 @@ class JanusClient {
       this.onClosed(json?.load?.handle_id);
     } else if (json?.load?.janus === 'webrtcup') {
       console.log('webrtcup');
-    } else if (json.type == 'detection') {
+    } else if (json.type.includes('detection')) {
       if (this.onDetection && json?.load?.predictions) {
         try {
           this.onDetection(json.load);
