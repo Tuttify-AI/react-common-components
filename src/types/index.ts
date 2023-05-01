@@ -1,0 +1,28 @@
+// eslint-disable-next-line
+export type MessageData = Record<string, any>;
+
+export type Nullable<T> = T | null;
+
+export enum SocketEvents {
+  disconnect = 'disconnect',
+  connect = 'connect',
+  reconnect = 'reconnect',
+  messageSent = 'message.sent',
+  connect_error = 'connect_error',
+  users = 'users',
+  userStatus = 'user.status',
+  roomsJoin = 'rooms.join',
+  roomsLeave = 'rooms.leave',
+}
+
+export interface ChatMessage {
+  _id: string;
+  room_id: string;
+  type: string;
+  from_user: string;
+  created_at: string;
+  updated_at?: string;
+  payload?: MessageData;
+}
+
+export type ValueOf<T> = T[keyof T];

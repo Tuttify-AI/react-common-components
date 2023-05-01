@@ -1,0 +1,37 @@
+@import "../../scss/variables";
+
+.guide {
+  background-color: $guide-background;
+  color: $guide-color;
+  border-radius: 15px;
+  font-weight: 500;
+  padding: 20px 30px;
+  font-size: 14px;
+  height: 35px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: '...';
+  display: inline-flex;
+  align-items: center;
+  animation-duration: 0.5s;
+  animation-name: expand;
+  transform-origin: 0% 50%;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  cursor: pointer;
+  &.close {
+    animation-name: shrink;
+    overflow: hidden;
+    transform: scaleX(0.8);
+  }
+}
+
+@keyframes shrink {
+  from {transform: scaleX(1);}
+  to {transform: scaleX(0.8);}
+}
+
+@keyframes expand {
+  from {transform: scaleX(0.8);}
+  to {transform: scaleX(1);}
+}
