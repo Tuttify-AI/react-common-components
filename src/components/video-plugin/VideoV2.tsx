@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle';
 import NoSleep from 'nosleep.js';
 import { Component } from 'react';
 import { isNil, remove, flatten, uniqBy } from 'ramda';
-import { interval, Subscription, fromEvent, from, Subject, BehaviorSubject, combineLatest } from 'rxjs';
+import { interval, Subscription, fromEvent, from, of, Subject, BehaviorSubject, combineLatest } from 'rxjs';
 import { mergeMap, concatMap, startWith, first, tap } from 'rxjs/operators';
 import { log } from './utils/log';
 import { VideoTrackContainer } from './components/VideoTrackContainer';
@@ -23,7 +23,6 @@ import { isMobile } from './utils/isMobile';
 import { pause } from './utils/pause';
 import { Detection, JanusClient } from './providers/janus-client';
 
-const isOnline = require('is-online');
 const lock = new BehaviorSubject<boolean>(false);
 let remounted = 0;
 
@@ -53,6 +52,7 @@ interface VideoChatV2State {
   tracks: BlipTrack[];
   audioDeviceId: string | null;
   videoDeviceId: string | null;
+  isOnline: boolean;
 }
 
 export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
@@ -92,6 +92,7 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
       tracks: [],
       audioDeviceId: null,
       videoDeviceId: null,
+      isOnline: navigator.onLine,
     };
 
     this.lastOnline = Date.now();
@@ -103,13 +104,23 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
     this.mounted = true;
 
     this.subscribeUnlocked(() => this.initialize(), 'initialize');
+
+    window.addEventListener('online', this.handleOnlineStatus);
+    window.addEventListener('offline', this.handleOnlineStatus);
   }
 
   componentWillUnmount() {
     this.mounted = false;
 
     this.subscribeUnlocked(() => this.cleanup(), 'cleanup');
+
+    window.removeEventListener('online', this.handleOnlineStatus);
+    window.removeEventListener('offline', this.handleOnlineStatus);
   }
+
+  handleOnlineStatus = () => {
+    this.setState({ isOnline: navigator.onLine });
+  };
 
   dispatch = (action: Promise<any>) => {
     this.actions.next(action);
@@ -316,7 +327,7 @@ export class VideoChatV2 extends Component<VideoChatV2Props, VideoChatV2State> {
       interval(5000)
         .pipe(
           startWith(0),
-          mergeMap(() => from(isOnline()))
+          mergeMap(() => of(this.state.isOnline))
         )
         .subscribe((connectedToNetwork: boolean) => this.onNetworkChange(connectedToNetwork))
     );
