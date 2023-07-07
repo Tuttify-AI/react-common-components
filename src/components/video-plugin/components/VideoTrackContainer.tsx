@@ -69,6 +69,7 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
 
   componentDidMount() {
     this.init();
+    this.updateAvatar();
   }
 
   componentDidUpdate(
@@ -581,11 +582,7 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
   };
 
   getPlaceholderSrc = () => {
-    if (!this.avatar) {
-      return 'https://picsum.photos/id/237/200/300';
-    } else {
-      return this.avatar;
-    }
+    return this.avatar;
   };
 
   render() {
