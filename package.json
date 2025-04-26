@@ -1,6 +1,6 @@
 {
   "name": "@blipiqlabs/react-common-components",
-  "version": "1.2.18",
+  "version": "1.2.20",
   "license": "MIT",
   "author": "blipiq",
   "main": "build/index.js",
@@ -13,10 +13,9 @@
     "lint": "eslint . --ext ts --ext tsx",
     "type-check": "tsc --pretty --noEmit --skipLibCheck",
     "format": "prettier --write \"**/*.+(ts|tsx)\"",
-    "build": "rollup -c",
+    "build": "rollup -c --bundleConfigAsCjs",
     "start": "rollup -c -w",
     "prepublishOnly": "rm -rf /build && yarn build",
-    "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
