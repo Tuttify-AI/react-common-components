@@ -24,20 +24,15 @@ const ImageFullscreen: React.FC<Props> = ({ src, alt = '' }) => {
     }
   };
 
+  containerRef.current?.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+      setFullscreen(false);
+    }
+  });
+
   return (
-    <div 
-      ref={containerRef}
-      style={{
-        position: 'relative',
-        display: 'inline-block',
-      }}
-    >
-      <Image 
-        onClick={onClick} 
-        src={src} 
-        alt={alt} 
-        style={{objectFit: fullscreen ? 'contain' : 'cover'}}
-      />
+    <div ref={containerRef}>
+      <Image onClick={onClick} src={src} alt={alt} style={{ objectFit: fullscreen ? 'contain' : 'cover' }} />
     </div>
   );
 };
