@@ -7,11 +7,11 @@ type Props = {
 };
 
 const ImageFullscreen: React.FC<Props> = ({ src, alt = '' }) => {
-  const imageRef = useRef<HTMLImageElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [fullscreen, setFullscreen] = useState(false);
 
   const onClick = () => {
-    if (imageRef?.current) {
+    if (containerRef?.current) {
       if (fullscreen) {
         setFullscreen(false);
         if (document.exitFullscreen) {
@@ -19,12 +19,27 @@ const ImageFullscreen: React.FC<Props> = ({ src, alt = '' }) => {
         }
       } else {
         setFullscreen(true);
-        imageRef.current.requestFullscreen();
+        containerRef.current.requestFullscreen();
       }
     }
   };
 
-  return <Image ref={imageRef} onClick={onClick} src={src} alt={alt} />;
+  return (
+    <div 
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        display: 'inline-block',
+      }}
+    >
+      <Image 
+        onClick={onClick} 
+        src={src} 
+        alt={alt} 
+        style={{objectFit: fullscreen ? 'contain' : 'cover'}}
+      />
+    </div>
+  );
 };
 
 export default ImageFullscreen;
