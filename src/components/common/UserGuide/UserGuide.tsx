@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
 
 import './index.scss';
 
 export interface Props {
   text: string;
-  open: boolean;
+  close: boolean;
 }
 
-export const UserGuide = ({ text, open }: Props) => {
-  const [isOpen, setIsOpen] = useState(open);
-  const onClickCallback = () => {
-    setIsOpen(false);
-  };
-
-  window.addEventListener('click', onClickCallback);
-
-  useEffect(() => {
-    return () => {
-      window.removeEventListener('click', onClickCallback);
-    };
-  }, []);
-
+export const UserGuide = ({ text, close }: Props) => {
+  const [isClose, setIsClose] = useState(close);
   return (
     <div
       className={classnames('guide', {
-        close: !isOpen,
+        close: isClose,
       })}
-      title={text}
-      onClick={e => {
-        setIsOpen(!isOpen);
-        e.stopPropagation();
-      }}
+      onClick={() => setIsClose(!isClose)}
     >
-      {isOpen && text}
+      {!isClose && text}
     </div>
   );
 };
