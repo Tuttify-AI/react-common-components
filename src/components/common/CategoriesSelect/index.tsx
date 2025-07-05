@@ -13,7 +13,6 @@ type Props = {
   labelCategory?: string;
   labelSubCategory?: string;
   labelSubSubCategory?: string;
-  required?: boolean;
 };
 
 const CategoriesSelect: React.FC<Props> = ({
@@ -23,7 +22,6 @@ const CategoriesSelect: React.FC<Props> = ({
   labelCategory,
   labelSubCategory,
   labelSubSubCategory,
-  required = false,
 }) => {
   return (
     <Grid item className="select-categories-container" sm={12}>
@@ -33,7 +31,6 @@ const CategoriesSelect: React.FC<Props> = ({
           value={categoriesState.category}
           onChange={updateCategoriesState('category')}
           label={labelCategory}
-          required={required}
         />
       </Grid>
       {categoriesState.category?.subcategories?.length ? (
@@ -43,7 +40,6 @@ const CategoriesSelect: React.FC<Props> = ({
             value={categoriesState.subCategory}
             onChange={updateCategoriesState('subCategory')}
             label={labelSubCategory}
-            required={required}
           />
         </Grid>
       ) : null}
@@ -54,7 +50,6 @@ const CategoriesSelect: React.FC<Props> = ({
             value={categoriesState.subSubCategory}
             onChange={updateCategoriesState('subSubCategory')}
             label={labelSubSubCategory}
-            required={false}
           />
         </Grid>
       ) : null}
