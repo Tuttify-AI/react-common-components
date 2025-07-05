@@ -12,6 +12,7 @@ import CloseIcon from '../icons/CloseIcon';
 
 import 'react-virtualized/styles.css';
 import useInterval from 'src/hooks/use-interval';
+import { Button } from '@material-ui/core';
 
 export interface SocketChatProps {
   socket: any;
@@ -24,6 +25,8 @@ export interface SocketChatProps {
   placeholder?: string;
   getQuestionListSummary: () => void;
   questionListSummary: { my_question_answered_count: number; friend_question_count: number } | undefined;
+  renderOnQuestionClick?: () => JSX.Element;
+  setShowEnhancedLearning: (b: boolean) => void;
 }
 
 const SocketChat: FC<SocketChatProps> = ({
@@ -37,6 +40,8 @@ const SocketChat: FC<SocketChatProps> = ({
   placeholder = 'Type your message',
   getQuestionListSummary,
   questionListSummary,
+  renderOnQuestionClick,
+  setShowEnhancedLearning,
 }) => {
   const [ioSocket, setIoSocket] = useState<any>(null);
   const [chatHistory, setChatHistory] = useState<any[]>(messages);
@@ -173,14 +178,16 @@ const SocketChat: FC<SocketChatProps> = ({
         <div className="chat-header">
           <div className="chat-title">Lesson name</div>
           <div className="notifications">
-            <div className="question-mark">
+            <Button onClick={() => setShowEnhancedLearning(true)} className="question-mark">
               <QuestionIcon />
-            </div>
+            </Button>
             <div className="reads">{questionListSummary?.friend_question_count ?? 0}</div>
             <div className="un-reads">{questionListSummary?.my_question_answered_count ?? 0}</div>
             <div className="label">Help</div>
           </div>
         </div>
+
+        {renderOnQuestionClick && renderOnQuestionClick()}
 
         <div onClick={toggleChat} className="close-wrapper">
           <CloseIcon />
