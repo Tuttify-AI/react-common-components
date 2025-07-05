@@ -27,7 +27,9 @@ interface VideoRoomContainerProps {
   y: number;
 }
 
-export class VideoRoomContainer extends Component<VideoRoomContainerProps, Record<string, never>> {
+interface VideoRoomContainerState {}
+
+export class VideoRoomContainer extends Component<VideoRoomContainerProps, VideoRoomContainerState> {
   ref;
 
   constructor(props) {

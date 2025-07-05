@@ -108,9 +108,7 @@ export class VideoChatV2Wrapper extends Component<VideoChatV2WrapperProps, Video
     if (ref) {
       try {
         bb = ref.resizableElement.current.getBoundingClientRect();
-      } catch (error) {
-        //
-      }
+      } catch (error) {}
     }
 
     let contextMenuX = 0;
@@ -149,7 +147,7 @@ export class VideoChatV2Wrapper extends Component<VideoChatV2WrapperProps, Video
     });
   };
 
-  onDragStart = () => {
+  onDragStart = (e, d) => {
     this.dragging = true;
   };
 
@@ -173,7 +171,7 @@ export class VideoChatV2Wrapper extends Component<VideoChatV2WrapperProps, Video
     }
   };
 
-  onResizeStart = () => {
+  onResizeStart = (e, dir, ref) => {
     this.resizing = true;
   };
 

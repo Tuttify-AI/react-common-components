@@ -201,17 +201,17 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
     const mediaStreamTrack: MediaStreamTrack | undefined = tracks[0];
 
     this.subscriptions.push(
-      fromEvent(source as any, 'first-frame-decoded').subscribe(() => {
+      fromEvent(source as any, 'first-frame-decoded').subscribe(event => {
         log.info(track, 'first-frame-decoded');
       }),
 
-      fromEvent(source as any, 'track-ended').subscribe(() => {
+      fromEvent(source as any, 'track-ended').subscribe(event => {
         log.warn(track, 'track-ended');
 
         this.injectAgoraStream();
       }),
 
-      fromEvent(mediaStreamTrack, 'ended').subscribe(() => {
+      fromEvent(mediaStreamTrack, 'ended').subscribe(event => {
         log.warn(track, 'ended');
 
         this.injectAgoraStream();
@@ -231,7 +231,7 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
         this.injectJanusStream();
       }),
 
-      fromEvent(source, 'mute').subscribe(() => {
+      fromEvent(source, 'mute').subscribe(event => {
         log.info(track, 'muted');
 
         this.setState({
@@ -239,7 +239,7 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
         });
       }),
 
-      fromEvent(source, 'unmute').subscribe(() => {
+      fromEvent(source, 'unmute').subscribe(event => {
         log.info(track, 'unmuted');
 
         this.setState({
@@ -607,7 +607,7 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
         ref={(e: any) => {
           this.container = e;
         }}
-        onMouseDown={() => this.resume()}
+        onMouseDown={e => this.resume()}
         style={style}
       >
         <canvas
@@ -668,7 +668,7 @@ export class VideoTrackContainer extends Component<VideoTrackContainerProps, Vid
         {!this.state.loading && this.state.showUserGestureTip && (
           <div
             id="permission-overlay"
-            onClick={() => {
+            onClick={e => {
               this.tryUnmuteGesture();
             }}
             style={{

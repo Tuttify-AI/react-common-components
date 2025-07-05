@@ -15,7 +15,9 @@ interface ControlsProps {
   endCall: () => void;
 }
 
-export class Controls extends Component<ControlsProps, Record<string, never>> {
+interface ControlsState {}
+
+export class Controls extends Component<ControlsProps, ControlsState> {
   mounted: boolean;
 
   constructor(props) {
