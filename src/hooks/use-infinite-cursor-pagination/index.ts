@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Nullable } from 'src/types';
+import { Nullable } from 'src/hooks/types';
 
 export type UseInfiniteCursorPaginationReturnValues = ReturnType<typeof useInfiniteCursorPagination>;
 

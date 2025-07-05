@@ -7,86 +7,73 @@ import { terser } from 'rollup-plugin-terser';
 const packageJson = require('./package.json');
 import { getFolders } from './scripts/buildUtils';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
-import json from '@rollup/plugin-json';
-import nodePolyfills from 'rollup-plugin-polyfill-node';
-import scss from 'rollup-plugin-scss';
-import postcss from 'rollup-plugin-postcss';
-import svgr from '@svgr/rollup';
 
 const plugins = [
-  peerDepsExternal(),
-  resolve(),
-  replace({
-    __IS_DEV__: process.env.NODE_ENV === 'development',
-    preventAssignment: true,
-  }),
-  commonjs(),
-  typescript({
-    tsconfig: './tsconfig.json',
-    useTsconfigDeclarationDir: true,
-  }),
-  terser(),
-  json(),
-  nodePolyfills(),
-  scss({
-    fileName: 'bundle.css',
-    failOnError: true,
-  }),
-  svgr(),
-  postcss(),
+    peerDepsExternal(),
+    resolve(),
+    replace({
+        __IS_DEV__: process.env.NODE_ENV === 'development',
+        preventAssignment: true,
+    }),
+    commonjs(),
+    typescript({
+        tsconfig: './tsconfig.json',
+        useTsconfigDeclarationDir: true,
+    }),
+    terser(),
 ];
-const subfolderPlugins = folderName => [
-  ...plugins,
-  generatePackageJson({
-    baseContents: {
-      name: `${packageJson.name}/${folderName}`,
-      private: true,
-      main: '../cjs/index.js',
-      module: './index.js',
-      types: './index.d.ts',
-    },
-  }),
+const subfolderPlugins = (folderName) => [
+    ...plugins,
+    generatePackageJson({
+        baseContents: {
+            name: `${packageJson.name}/${folderName}`,
+            private: true,
+            main: '../cjs/index.js',
+            module: './index.js',
+            types: './index.d.ts',
+        },
+    }),
 ];
-const folderBuilds = getFolders('./src').map(folder => {
-  return {
-    input: `src/${folder}/index.ts`,
-    output: {
-      file: `build/${folder}/index.js`,
-      sourcemap: true,
-      exports: 'named',
-      format: 'esm',
-    },
-    plugins: subfolderPlugins(folder),
-    external: ['react', 'react-dom', 'react-rnd', '@material-ui/core', '@material-ui/icons'],
-  };
+const folderBuilds = getFolders('./src').map((folder) => {
+    return {
+        input: `src/${folder}/index.ts`,
+        output: {
+            file: `build/${folder}/index.js`,
+            sourcemap: true,
+            exports: 'named',
+            format: 'esm',
+        },
+        plugins: subfolderPlugins(folder),
+        external: ['react', 'react-dom'],
+    };
 });
 
 export default [
-  {
-    input: ['src/index.ts'],
-    output: [
-      {
-        file: packageJson.module,
-        format: 'esm',
-        sourcemap: true,
-        exports: 'named',
-      },
-    ],
-    plugins,
-    external: ['react', 'react-dom', 'react-rnd', '@material-ui/core', '@material-ui/icons'],
-  },
-  ...folderBuilds,
-  {
-    input: ['src/index.ts'],
-    output: [
-      {
-        file: packageJson.main,
-        format: 'cjs',
-        sourcemap: true,
-        exports: 'named',
-      },
-    ],
-    plugins,
-    external: ['react', 'react-dom', 'react-rnd', 'socket.io-client', '@material-ui/core', '@material-ui/icons'],
-  },
+    {
+        input: ['src/index.ts'],
+        output: [
+            {
+                file: packageJson.module,
+                format: 'esm',
+                sourcemap: true,
+                exports: 'named',
+            },
+        ],
+        plugins,
+        external: ['react', 'react-dom'],
+    },
+    ...folderBuilds,
+    {
+        input: ['src/index.ts'],
+        output: [
+            {
+                file: packageJson.main,
+                format: 'cjs',
+                sourcemap: true,
+                exports: 'named',
+            },
+        ],
+        plugins,
+        external: ['react', 'react-dom'],
+    },
 ];

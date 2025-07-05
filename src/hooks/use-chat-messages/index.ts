@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
 
-import { ChatMessage, MessageData, Nullable } from 'src/types';
+import { ChatMessage, MessageData, Nullable } from '../types';
 import useSetupSocket from '../use-setup-socket';
 
 export type UseChatMessagesReturnValues = ReturnType<typeof useChatMessages>;
@@ -30,16 +30,13 @@ function useChatMessages(
   socket: Socket | null,
   subscribeToConnect?: ReturnType<typeof useSetupSocket>['subscribeToConnect'],
   roomId?: string,
-  { addRoomMember, fetchMessages, showLogs = true }: UseChatMessagesParams = DEFAULT_PARAMS
+  { addRoomMember, fetchMessages, showLogs = false }: UseChatMessagesParams = DEFAULT_PARAMS
 ) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-
-  showLogs && console.log('useChatMessages messages:', messages);
 
   const getMessages = useCallback(
     async (roomId: string, messageData?: MessageData) => {
       try {
-        showLogs && console.log('useChatMessages getMessages:', fetchMessages);
         if (fetchMessages) {
           const data = await fetchMessages(roomId, messageData);
           setMessages(data);
@@ -55,11 +52,9 @@ function useChatMessages(
   const onConnectToRoom = useCallback(
     async (roomId: string) => {
       try {
-        showLogs && console.log('useChatMessages onConnectToRoom:', addRoomMember);
         if (addRoomMember) {
           await addRoomMember(roomId);
           await getMessages(roomId, { type: 'chat' });
-          showLogs && console.log('useChatMessages a room member was added to', roomId);
         }
       } catch (e) {
         // eslint-disable-next-line no-console

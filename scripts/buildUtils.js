@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const EXCLUDED_FOLDERS = [];
+const EXCLUDED_FOLDERS = ['utils'];
 
 export const getFolders = (entry) => {
    const dirs = fs.readdirSync(entry)
