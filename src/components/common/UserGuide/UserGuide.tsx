@@ -27,6 +27,7 @@ export const UserGuide = ({ text, open }: Props) => {
       className={classnames('guide', {
         close: !isOpen,
       })}
+      title={text}
       onClick={e => {
         setIsOpen(!isOpen);
         e.stopPropagation();

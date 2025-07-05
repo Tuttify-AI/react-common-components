@@ -7,7 +7,7 @@ export default {
   title: 'Common Components/UserGuide',
   component: UserGuide,
   args: {
-    text: 'Tap any card above to play a sound.',
+    text: 'Tap any card above to play a sound. and a very very long text',
     open: true,
   },
 } as ComponentMeta<typeof UserGuide>;
