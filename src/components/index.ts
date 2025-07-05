@@ -7,6 +7,7 @@ import EnhancedLearning from './enhanced-learning';
 import { JanusBlipConfig } from './video-plugin';
 import { VideoChatV2Wrapper, VideoChatV2WrapperProps } from './video-plugin/VideoChatV2Wrapper';
 import { VideoChatV2 } from './video-plugin/VideoV2';
+import ModerationChat from './ModerationChat';
 
 export {
   Image,
@@ -22,4 +23,5 @@ export {
   VideoChatV2,
   VideoChatV2Wrapper as VideoChat,
   VideoChatV2WrapperProps,
+  ModerationChat,
 };

@@ -6,8 +6,9 @@ import useInfiniteCursorPagination, {
 import usePrevious from './use-previous';
 import useSetupSocket, { UseSetupSocketParams, UseSetupSocketReturnValues } from './use-setup-socket';
 import useRefreshToken, { UseRefreshTokenParams, TokenRefreshParams } from './use-refresh-token';
+import useRoomMessages from './useRoomMessages';
 
-export { usePrevious, useSetupSocket, useChatMessages, useInfiniteCursorPagination, useRefreshToken };
+export { usePrevious, useSetupSocket, useChatMessages, useInfiniteCursorPagination, useRefreshToken, useRoomMessages };
 
 export type {
   UseSetupSocketReturnValues,
