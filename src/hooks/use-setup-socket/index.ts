@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { io, ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
-import { MessageData, Nullable, SocketEvents } from 'src/hooks/types';
+import { MessageData, Nullable, SocketEvents } from 'src/types';
 import usePrevious from 'src/hooks/use-previous';
 
 export type UseSetupSocketReturnValues = ReturnType<typeof useSetupSocket>;

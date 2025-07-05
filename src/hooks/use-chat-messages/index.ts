@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Socket } from 'socket.io-client';
 
-import { ChatMessage, MessageData, Nullable } from '../types';
+import { ChatMessage, MessageData, Nullable } from 'src/types';
 import useSetupSocket from '../use-setup-socket';
 
 export type UseChatMessagesReturnValues = ReturnType<typeof useChatMessages>;

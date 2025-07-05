@@ -24,5 +24,3 @@ export interface ChatMessage {
   updated_at?: string;
   payload?: MessageData;
 }
-
-export type ValueOf<T> = T[keyof T];

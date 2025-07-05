@@ -1,4 +1,3 @@
-import { MessageData, Nullable, SocketEvents, ChatMessage } from './types';
 import useChatMessages, { UseChatMessagesParams, UseChatMessagesReturnValues } from './use-chat-messages';
 import useInfiniteCursorPagination, {
   UseInfiniteCursorPaginationParams,
@@ -15,12 +14,8 @@ export type {
   UseInfiniteCursorPaginationReturnValues,
   UseChatMessagesReturnValues,
   UseSetupSocketParams,
-  MessageData,
-  SocketEvents,
-  Nullable,
   UseChatMessagesParams,
   UseInfiniteCursorPaginationParams,
-  ChatMessage,
   UseRefreshTokenParams,
   TokenRefreshParams,
 };
