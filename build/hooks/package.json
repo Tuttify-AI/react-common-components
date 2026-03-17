@@ -1,0 +1,10 @@
+{
+  "name": "@blipiqlabs/react-common-components/hooks",
+  "private": true,
+  "main": "../cjs/index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "dependencies": {
+    "socket.io-client": "^4.5.2"
+  }
+}
