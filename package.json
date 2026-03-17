@@ -15,6 +15,7 @@
     "format": "prettier --write \"**/*.+(ts|tsx)\"",
     "build": "rollup -c --bundleConfigAsCjs",
     "start": "rollup -c -w",
+    "prepare": "yarn build",
     "prepublishOnly": "rm -rf /build && yarn build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
